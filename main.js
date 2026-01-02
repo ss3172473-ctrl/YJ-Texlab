@@ -150,31 +150,6 @@ const initAnimations = () => {
         .to('.chart-label-competitor', { opacity: 1, duration: 1 }, 'start-chart+=1');
 
 
-    // Scene 3: Breakthrough (Counter & Narrative)
-    const tl3 = gsap.timeline({
-        scrollTrigger: {
-            trigger: '#scene-3',
-            start: 'top top',
-            end: '+=1500', // Reduced scroll distance for faster progression
-            scrub: 1,
-            pin: true,
-        }
-    });
-
-    // 1. Reveal Counter & Count to 30 + Reveal Narrative Text simultaneously
-    tl3.fromTo('#day-counter', { innerText: 0 }, {
-        innerText: 30,
-        duration: 4,
-        snap: { innerText: 1 },
-        ease: 'none',
-        onUpdate: function () { this.targets()[0].innerText = Math.ceil(this.targets()[0].innerText); }
-    }, 'start-ch3');
-
-    tl3.fromTo('.narrative-block > *',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, stagger: 0.5, duration: 3 },
-        'start-ch3' // Sync with counter start
-    );
 
 
     const tl4 = gsap.timeline({
