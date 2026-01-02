@@ -209,6 +209,49 @@ const initInertia = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     initAnimations();
+    // Certified Tag Tilt Effect
+    const tag = document.querySelector('.tag-visual');
+    const shine = document.querySelector('.shine-overlay');
+    if (tag && shine) {
+        window.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const rect = tag.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            // Tilt amount
+            const rotateX = (centerY - clientY) / 15;
+            const rotateY = (clientX - centerX) / 15;
+
+            // Shine position
+            const xPercent = (clientX - rect.left) / rect.width * 100;
+            const yPercent = (clientY - rect.top) / rect.height * 100;
+
+            gsap.to(tag, {
+                rotateX: rotateX,
+                rotateY: rotateY,
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+
+            gsap.to(shine, {
+                xPercent: xPercent - 50,
+                yPercent: yPercent - 50,
+                duration: 0.6,
+                ease: 'power2.out'
+            });
+        });
+
+        tag.addEventListener('mouseleave', () => {
+            gsap.to(tag, {
+                rotateX: 0,
+                rotateY: 0,
+                duration: 1.2,
+                ease: 'elastic.out(1, 0.3)'
+            });
+        });
+    }
+
     initInertia();
     initSoundDesign();
 });
