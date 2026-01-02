@@ -1311,6 +1311,18 @@ body {
     z-index: 0;
 }
 
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+    }
+
+    .firsts-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
 /* --- YEONGJIN CERTIFIED PAGE --- */
 .certified-container {
     padding: 12rem 5% 8rem;
@@ -1390,6 +1402,25 @@ body {
     line-height: 1.7;
     opacity: 0.6;
     word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+    .certified-hero {
+        margin-bottom: 5rem;
+    }
+
+    .certified-desc {
+        font-size: 1.1rem;
+    }
+
+    .standards-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .standard-item {
+        padding: 2rem;
+    }
 }
 
 .tag-visual {
