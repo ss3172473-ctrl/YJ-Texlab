@@ -899,6 +899,27 @@ body {
     z-index: 5;
 }
 
+@media (max-width: 768px) {
+    .ch4-slide-1 {
+        top: 50%;
+        width: 95%;
+    }
+
+    .slide-visibility-wrapper {
+        padding: 1rem 1.5rem;
+    }
+
+    .ch4-slide-1 .split-text {
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .growth-story .sub-copy {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+}
+
 #scene-4 .scene-label {
     position: absolute;
     top: 10%;
