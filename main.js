@@ -42,7 +42,12 @@ const initAnimations = () => {
     });
 
     // --- 3. Custom Cursor & Social/Nav Hover Sound ---
-    const cursor = document.querySelector('.cursor-dot');
+    const cursorDot = document.querySelector('.cursor-dot');
+
+    // Check for touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        if (cursorDot) cursorDot.style.display = 'none';
+    }
 
     // Blueprint Parallax & Cursor Interaction
     // Optimized Mouse Follower

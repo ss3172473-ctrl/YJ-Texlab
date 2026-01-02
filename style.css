@@ -182,6 +182,39 @@ body {
     opacity: 1;
 }
 
+/* Mobile Navigation Adjustments */
+@media (max-width: 768px) {
+    #main-nav {
+        padding: 0 4%;
+        height: 60px;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.55rem;
+        letter-spacing: 0.1em;
+    }
+
+    .logo-box {
+        width: 70px;
+        height: 40px;
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 0.6rem;
+    }
+
+    .nav-links a {
+        font-size: 0.5rem;
+    }
+}
+
 /* Hero Branding Section */
 .hero-branding {
     position: absolute;
@@ -399,6 +432,23 @@ body {
     padding-left: 2rem;
     word-break: keep-all;
     text-align: left;
+}
+
+@media (max-width: 768px) {
+    .split-text {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .sub-copy {
+        font-size: 0.95rem;
+        padding-left: 1.5rem;
+        max-width: 100%;
+    }
+
+    .scene-label {
+        font-size: 1.1rem;
+    }
 }
 
 /* Innovation Sections (No Navy) */
@@ -1104,6 +1154,36 @@ body {
     .narrative-header .chapter-title {
         font-size: 2.5rem;
         white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .narrative-header {
+        top: 15%;
+        left: 5%;
+        width: 90%;
+    }
+
+    .narrative-header .chapter-title {
+        font-size: 1.4rem;
+        white-space: normal;
+        word-break: keep-all;
+    }
+
+    .chapter-wrap {
+        padding-top: 30vh;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .chapter-content {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .archive-dots {
+        right: 2%;
+        gap: 1rem;
     }
 }
 
