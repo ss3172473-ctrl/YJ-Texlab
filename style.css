@@ -252,6 +252,18 @@ body {
     }
 }
 
+@media (max-width: 480px) {
+    .hero-hanja {
+        font-size: 15vw;
+        padding: 0.5rem;
+    }
+
+    .hero-hanja .korean-suffix {
+        font-size: 0.35em;
+        margin-top: 0.5rem;
+    }
+}
+
 .hanja-line {
     display: inline-block;
     position: relative;
@@ -462,6 +474,28 @@ body {
 
     .scene-label {
         font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .split-text {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .sub-copy {
+        font-size: 0.85rem;
+        padding-left: 1rem;
+        line-height: 1.5;
+    }
+
+    .scene-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .scene {
+        padding: 0 1rem;
     }
 }
 
@@ -931,6 +965,20 @@ body {
     .growth-story .sub-copy {
         font-size: 0.85rem;
         line-height: 1.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .ch4-slide-1 {
+        top: 55%;
+    }
+
+    .ch4-slide-1 .split-text {
+        font-size: 1.25rem;
+    }
+
+    .growth-story .sub-copy {
+        font-size: 0.8rem;
     }
 }
 
