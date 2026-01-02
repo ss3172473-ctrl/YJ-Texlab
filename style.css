@@ -1,0 +1,1739 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Gowun+Batang:wght@400;700&family=Nanum+Brush+Script&display=swap');
+
+:root {
+    /* Refined Quiet Luxury Palette */
+    --color-ink: #121212;
+    /* Deeper, more sophisticated black */
+    --color-cotton: #F7F5F2;
+    /* Warmer, cleaner beige */
+    --color-paper: #EFEDE8;
+    /* Subtle contrast to cotton */
+    --color-heritage-accent: #A68B6A;
+    /* Refined Bronze */
+
+    /* Modern Innovation Palette */
+    --color-precision-dark: #1A1919;
+    --color-clay: #5C5852;
+    --color-steel: #8C8C8C;
+    --color-innovation-accent: #9BA1C2;
+    /* Softer, premium steel blue */
+
+    /* Typography - More breathing room */
+    --font-serif: 'Nanum Myeongjo', serif;
+    --font-display: 'Playfair Display', serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-brush: 'Nanum Brush Script', cursive;
+
+    /* Layout & Motion */
+    --container-max: 1400px;
+    --header-height: 80px;
+    --ease-premium: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(circle at 70% 30%, rgba(204, 162, 126, 0.05), transparent),
+        radial-gradient(circle at 20% 80%, rgba(142, 148, 181, 0.05), transparent),
+        var(--color-cotton);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0;
+    position: relative;
+    opacity: 0;
+    /* For fade-in transition */
+    animation: fadeInPage 1.2s var(--ease-premium) forwards;
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+    }
+}
+
+#aspect-ratio-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#scaling-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+}
+
+/* Base style for elements that should remain fixed regardless of scaling */
+.fixed-ui {
+    position: fixed;
+    z-index: 2000;
+}
+
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    transition: transform 0.3s var(--ease-premium), background-color 0.3s ease;
+}
+
+.cursor-dot.hover {
+    transform: scale(6);
+    background-color: var(--color-cotton);
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+#main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 1000;
+    background: rgba(247, 245, 242, 0.8);
+    backdrop-filter: blur(20px);
+    transition: all 0.5s var(--ease-premium);
+}
+
+.logo-box {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: 2px solid var(--color-ink);
+    line-height: 0.8;
+    text-align: center;
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    font-family: 'Gowun Batang', serif;
+    width: 84px;
+    /* Fixed width to ensure packed look */
+    height: 48px;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.logo-box .top,
+.logo-box .bottom {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.logo-box .top {
+    margin-bottom: -2px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-ink);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+    opacity: 0.5;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    opacity: 1;
+}
+
+/* Hero Branding Section */
+.hero-branding {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.hero-hanja {
+    font-family: var(--font-brush);
+    font-size: 14vw;
+    /* Larger but fixed clipping with line-height */
+    font-weight: 400;
+    color: var(--color-ink);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    padding: 2rem;
+}
+
+.hanja-line {
+    display: inline-block;
+    position: relative;
+    clip-path: inset(0 100% 0 0);
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+}
+
+.hero-hanja .hanja {
+    font-size: 1.2em;
+}
+
+.hero-hanja .korean-suffix {
+    font-family: var(--font-sans);
+    font-size: 0.25em;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+
+/* Scene Background Enhancements */
+.scene::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(26, 26, 26, 0.02) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Base Scene Structure */
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--color-cotton);
+}
+
+.background-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* Background Images (Updated with Generated Assets) */
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    /* Subtle background */
+    z-index: 0;
+}
+
+.bg-image.image-2 {
+    background-image: url('https://images.unsplash.com/photo-1596468138838-29138d32f1b9?q=80&w=2070&auto=format&fit=crop');
+}
+
+/* Placeholder for Ch2 if not generated */
+.bg-image.image-3 {
+    background-image: url('https://images.unsplash.com/photo-1605218427306-633ba88c9ed3?q=80&w=2069&auto=format&fit=crop');
+}
+
+/* Placeholder for Ch3 if not generated */
+.bg-image.image-4 {
+    background-image: url('/images/bg-ch4.png');
+    opacity: 0.4;
+}
+
+/* Modern Lab */
+
+/* Specific Override for Ch1 if it uses image-1 css class differently */
+.scene#scene-1 .bg-image {
+    background-image: url('/images/bg-ch1.png');
+    opacity: 0.3;
+    filter: sepia(0.5);
+}
+
+/* Hero Background */
+#hero .bg-image {
+    background-image: url('/images/bg-hero.png');
+    opacity: 0.6;
+}
+
+/* Content Layout - Editorial focus */
+.content {
+    position: relative;
+    z-index: 10;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: left;
+}
+
+.blueprint-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(142, 148, 181, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(142, 148, 181, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.blueprint-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10L90 90M90 10L10 90' stroke='rgba(142, 148, 181, 0.05)' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.3;
+}
+
+/* Global Text Updates for Light Background */
+.scene .content {
+    text-align: left;
+    /* Explicit left alignment */
+    color: var(--color-ink);
+    /* Dark text for beige background */
+}
+
+/* Specific left alignment for vertically centered scenes */
+#scene-hero .content {
+    text-align: center;
+    /* Keep Hero centered for impact */
+    margin: 0 auto;
+}
+
+.scene-label {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--color-ink);
+    /* Dark color */
+    text-transform: uppercase;
+    font-family: var(--font-sans);
+    opacity: 0.6;
+}
+
+.scene h2 {
+    font-size: 3.5rem;
+    /* Increased size */
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    color: var(--color-ink);
+    /* Dark color */
+}
+
+.split-text {
+    font-family: var(--font-serif);
+    font-size: 3.2rem;
+    line-height: 1.25;
+    font-weight: 700;
+    margin-bottom: 3.5rem;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+}
+
+.sub-copy {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(26, 26, 26, 0.8);
+    /* Dark text with slight opacity */
+    max-width: 600px;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    /* Dark border */
+    padding-left: 2rem;
+    word-break: keep-all;
+    text-align: left;
+}
+
+/* Innovation Sections (No Navy) */
+.innovation {
+    background-color: var(--color-precision-dark);
+    color: var(--color-cotton);
+}
+
+.innovation .split-text {
+    color: var(--color-cotton);
+}
+
+.innovation .sub-copy {
+    color: rgba(234, 231, 225, 0.7);
+    border-left-color: var(--color-innovation-accent);
+}
+
+.innovation .scene-label {
+    color: var(--color-innovation-accent);
+}
+
+/* Counter Fix */
+.counter-wrap {
+    opacity: 1 !important;
+    /* Visible from the start */
+    margin-bottom: 2rem;
+}
+
+.counter {
+    font-family: var(--font-sans);
+    font-size: 7rem;
+    font-weight: 200;
+    letter-spacing: -0.05em;
+    color: var(--color-heritage-accent);
+    display: inline-block;
+    min-width: 120px;
+}
+
+.stats-badge {
+    background: transparent;
+    border: 1px solid var(--color-clay);
+    color: var(--color-steel);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    padding: 0.6rem 2rem;
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.stats-badge:hover {
+    border-color: var(--color-innovation-accent);
+    color: var(--color-cotton);
+}
+
+.tag-visual {
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+    opacity: 1 !important;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: var(--font-serif);
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    opacity: 0.2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.vertical-text.left {
+    left: 3%;
+}
+
+.vertical-text.right {
+    right: 3%;
+}
+
+/* Footer Editorial */
+#main-footer {
+    padding: 12rem 5% 4rem;
+    background: #0d0d0d;
+    color: var(--color-cotton);
+    text-align: left;
+}
+
+.motto {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+    opacity: 0.15;
+    letter-spacing: 0.2em;
+}
+
+/* Utilities */
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+    width: fit-content;
+    opacity: 0.3;
+}
+
+.matrix-dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-innovation-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.data-matrix-container {
+    padding: 1rem;
+    border: 1px solid rgba(142, 148, 181, 0.1);
+}
+
+/* Contact Page Refinements */
+.contact-details {
+    display: flex;
+    gap: 4rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    padding-bottom: 4rem;
+}
+
+.contact-item .label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--color-heritage-accent);
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.contact-item p {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Legacy Badge Styling */
+.legacy-badge {
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.legacy-badge:hover {
+    transform: translateY(-5px);
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.dialogue-text {
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: fadeInSlide 0.5s forwards;
+    animation-play-state: paused;
+    /* Controlled by JS scroll */
+}
+
+.visual-dialogue.active .dialogue-text:nth-child(1) {
+    animation-delay: 0.2s;
+    animation-play-state: running;
+}
+
+.visual-dialogue.active .dialogue-text:nth-child(2) {
+    animation-delay: 1.2s;
+    animation-play-state: running;
+}
+
+.visual-dialogue.active .dialogue-text:nth-child(3) {
+    animation-delay: 2.5s;
+    animation-play-state: running;
+}
+
+.visual-dialogue.active .dialogue-footer {
+    animation: fadeInSlide 0.5s forwards 3s;
+    animation-play-state: running;
+    opacity: 0;
+}
+
+@keyframes fadeInSlide {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 5. Promise Tag (Chapter 5) */
+.promise-tag {
+    transition: transform 0.3s ease;
+}
+
+.promise-tag:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Brand Marquee Styling */
+.marquee-content img {
+    flex-shrink: 0;
+    mix-blend-mode: multiply;
+    /* Helps with non-transparent white background logos */
+}
+
+.marquee-content img:hover {
+    transform: scale(1.1);
+}
+
+/* --- Added Component Styles to Replace Inline Styles --- */
+
+/* Hero Scene Specifics */
+#scene-hero .blueprint-layer {
+    opacity: 0.1;
+}
+
+#scene-1 .blueprint-layer {
+    opacity: 0.5;
+}
+
+#scene-2 .blueprint-layer {
+    opacity: 0.3;
+}
+
+#scene-4 .blueprint-layer {
+    opacity: 0.1;
+}
+
+#scene-5 .blueprint-layer {
+    opacity: 0.03;
+}
+
+#scene-5 .bg-image {
+    opacity: 0.1;
+}
+
+#scene-hero .content {
+    max-width: 1100px;
+    position: relative;
+    z-index: 2;
+    margin: 0 auto;
+}
+
+#scene-hero .scene-label {
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    opacity: 0.8;
+}
+
+#scene-hero .split-text {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 2.5rem;
+    word-break: keep-all;
+}
+
+#scene-hero .sub-copy {
+    margin: 0 auto;
+    border: none;
+    padding: 0;
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 800px;
+    opacity: 0.9;
+}
+
+.visual-caption {
+    margin-top: 4rem;
+    font-size: 0.8rem;
+    opacity: 0.4;
+    font-family: var(--font-sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Visual Metaphor: Rough to Smooth */
+.rough-smooth-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.rough-part {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.15;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.smooth-part {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(234, 231, 225, 1), rgba(234, 231, 225, 0));
+    opacity: 1;
+}
+
+/* Common Utilites from Inline */
+.nowrap-inline {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.serif-italic-light {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* Scene 1 Specifics */
+#scene-1 .content {
+    position: relative;
+    z-index: 10;
+}
+
+#scene-1 .scene-label {
+    font-size: 1.2rem;
+}
+
+.visual-component-char {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    font-family: 'Gowun Batang', serif;
+    font-size: 15rem;
+    opacity: 0.05;
+    font-weight: 900;
+    pointer-events: none;
+}
+
+/* Scene 2 Specifics */
+#scene-2 .content.side-content {
+    max-width: 45%;
+    margin-right: auto;
+    margin-left: 10%;
+}
+
+.visual-asset-chart {
+    position: absolute;
+    right: 2%;
+    top: 25%;
+    width: 45%;
+    height: 45%;
+    opacity: 0.9;
+}
+
+.philosophy-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* Scene 3 Specifics */
+.narrative-block {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.2rem;
+    line-height: 2;
+    color: var(--color-ink);
+}
+
+/* Scene 4 Specifics */
+.ch4-slides-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 5%;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 15vh;
+}
+
+.brand-marquee {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border-top: 1px solid var(--color-ink);
+    border-bottom: 1px solid var(--color-ink);
+    padding: 15px 0;
+    background: #ffffff;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    width: fit-content;
+    align-items: center;
+}
+
+.marquee-content img {
+    height: 40px;
+    margin-right: 40px;
+    transition: all 0.3s ease;
+}
+
+/* Overrides for specific logos */
+.marquee-content img[alt="Mitsubishi"] {
+    height: 25px;
+}
+
+.marquee-content img[alt="Beanpole"] {
+    height: 70px;
+}
+
+.marquee-content img[alt="LF"] {
+    height: 55px;
+}
+
+.marquee-content img[alt="E-Land"] {
+    height: 60px;
+}
+
+.marquee-content img[alt="Parkland"] {
+    height: 60px;
+}
+
+.ch4-slide-1 {
+    position: absolute;
+    top: 60%;
+    left: 5%;
+    transform: translateY(-50%);
+    width: 100%;
+    max-width: 800px;
+    z-index: 5;
+}
+
+.slide-visibility-wrapper {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 2.5rem;
+    border: 1px solid var(--color-ink);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.ch4-slide-2 {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-40%);
+    width: 90%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.growth-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    border-top: 2px solid rgba(0, 0, 0, 1);
+    padding-top: 3rem;
+    color: var(--color-ink);
+}
+
+.stat-col h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    opacity: 1;
+    font-family: var(--font-serif);
+    font-weight: bold;
+    color: #000;
+}
+
+.stat-col ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Logo Box Responsiveness & Premium Feel */
+.logo-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease;
+    user-select: none;
+    padding: 0.5rem;
+}
+
+.logo-box:hover {
+    transform: scale(1.02) translateY(-2px);
+    opacity: 0.8;
+}
+
+.logo-box span {
+    display: block;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+    .logo-box {
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-box {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-box {
+        transform: scale(0.7);
+    }
+}
+
+/* --- THE ARCHIVE PAGE --- */
+.archive-slider {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--color-cotton);
+}
+
+.chapter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    overflow: hidden;
+    background-color: var(--color-cotton);
+}
+
+.slide {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+    visibility: hidden;
+    overflow: hidden;
+    background-color: var(--color-cotton);
+}
+
+.slide.active {
+    visibility: visible;
+}
+
+.chapter-wrap {
+    max-width: 800px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+    padding-top: 25vh;
+}
+
+.chapter-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.05;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.chapter-no {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--color-heritage-accent);
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.chapter-title {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    margin-bottom: 3rem;
+    font-weight: 800;
+    color: var(--color-ink);
+}
+
+.chapter-content {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 2.2;
+    color: rgba(26, 26, 26, 1);
+    word-break: keep-all;
+    margin-top: 1rem;
+}
+
+.archive-dots {
+    position: fixed;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 100;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--color-ink);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0.3;
+    position: relative;
+}
+
+.dot.active {
+    opacity: 1;
+    background: var(--color-ink);
+    transform: scale(1.5);
+}
+
+.dot-label {
+    position: absolute;
+    right: 2rem;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dot:hover .dot-label {
+    opacity: 0.5;
+}
+
+.narrative-header {
+    position: absolute;
+    top: 18%;
+    left: 15%;
+    z-index: 20;
+    pointer-events: none;
+    width: 70%;
+}
+
+.para-gap {
+    height: 1.2rem;
+}
+
+@media (max-width: 1400px) {
+    .narrative-header .chapter-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* --- THE FIRSTS PAGE --- */
+.firsts-container {
+    padding: 12rem 5% 8rem;
+    background-color: var(--color-cotton);
+    min-height: 100vh;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 6rem;
+    text-align: center;
+    color: var(--color-ink);
+}
+
+.firsts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.first-card {
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+    padding-top: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.first-card:hover {
+    transform: translateY(-10px);
+}
+
+.first-year {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--color-heritage-accent);
+    display: block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.first-title {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-ink);
+    line-height: 1.3;
+}
+
+.first-desc {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    opacity: 0.7;
+    word-break: keep-all;
+}
+
+.seal {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    font-family: 'Gowun Batang', serif;
+    font-size: 10rem;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- YEONGJIN CERTIFIED PAGE --- */
+.certified-container {
+    padding: 12rem 5% 8rem;
+    background-color: var(--color-precision-dark);
+    color: var(--color-cotton);
+    min-height: 100vh;
+}
+
+.certified-hero {
+    max-width: 1000px;
+    margin: 0 auto 10rem;
+    text-align: center;
+}
+
+.certified-label {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.5em;
+    color: var(--color-innovation-accent);
+    margin-bottom: 2rem;
+    display: block;
+    text-transform: uppercase;
+}
+
+.certified-title {
+    font-family: var(--font-serif);
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+}
+
+.certified-desc {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    max-width: 700px;
+    margin: 0 auto;
+    word-break: keep-all;
+}
+
+.standards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.standard-item {
+    border: 1px solid rgba(234, 231, 225, 0.1);
+    padding: 3rem;
+    transition: background 0.3s ease;
+}
+
+.standard-item:hover {
+    background: rgba(234, 231, 225, 0.05);
+}
+
+.standard-no {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    opacity: 0.4;
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.standard-name {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.standard-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    word-break: keep-all;
+}
+
+.tag-visual {
+    width: 150px;
+    height: 250px;
+    background: white;
+    margin: 6rem auto 0;
+    color: black;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.tag-logo {
+    font-family: 'Gowun Batang', serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #000;
+    padding-bottom: 0.5rem;
+}
+
+.tag-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+}
+
+/* Theme Override for Certified Page */
+.certified-page #main-nav {
+    background: rgba(18, 17, 17, 0.9);
+    border-bottom-color: rgba(234, 231, 225, 0.05);
+}
+
+.certified-page .logo-box {
+    border-color: var(--color-cotton);
+    color: var(--color-cotton);
+}
+
+.certified-page .nav-links a {
+    color: var(--color-cotton);
+}
+
+/* --- CONTACT PAGE --- */
+.contact-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 5% 0 5%;
+    background-color: var(--color-cotton);
+    overflow: hidden;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.contact-heading {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4rem;
+}
+
+.contact-motto {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 3rem;
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+}
+
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    padding: 1rem 0;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    border-color: var(--color-heritage-accent);
+}
+
+.submit-btn {
+    background: var(--color-ink);
+    color: var(--color-cotton);
+    border: none;
+    padding: 1.5rem 4rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: var(--color-heritage-accent);
+}
+
+.seal-mark {
+    margin-top: 6rem;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: rgba(140, 120, 81, 0.2);
+    font-weight: 800;
+}
+
+/* Additional Utilities */
+.sub-copy-serif {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    line-height: 2;
+    opacity: 0.6;
+}
+
+.no-top-margin {
+    margin-top: 0 !important;
+}
+
+/* Scene 5 Specifics */
+.final-scene-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#scene-5 .split-text {
+    color: #000;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+#scene-5 .sub-copy {
+    color: #000;
+    border: none;
+    padding: 0;
+    max-width: 700px;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.future-highlight {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 2px solid var(--color-ink);
+    padding-bottom: 5px;
+}
+
+.promise-tag {
+    background: white;
+    padding: 2rem 3rem;
+    border: 1px solid #000;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.promise-tag::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: #000;
+    border-radius: 50%;
+}
+
+.tag-header {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tag-header span {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.tag-body {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.tag-motto {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.tag-footer {
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    color: #555;
+}
+
+/* Lines.html Specifics (Migrated from lines.html) */
+.lines-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.line-pane {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 5%;
+    position: relative;
+    transition: width 0.8s var(--ease-premium), filter 0.5s ease;
+    overflow: hidden;
+}
+
+.line-pane::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+.heritage-pane::before {
+    background-image: url('/assets/heritage_texture.png');
+    background-color: var(--color-cotton);
+}
+
+.innovation-pane::before {
+    background-image: url('/assets/innovation_blueprint.png');
+    background-color: var(--color-precision-dark);
+    opacity: 0.05;
+}
+
+.line-pane:hover {
+    width: 70%;
+}
+
+.line-pane:hover+.line-pane .line-content,
+.lines-container:has(.innovation-pane:hover) .heritage-pane .line-content {
+    opacity: 0;
+    pointer-events: none;
+    filter: blur(5px);
+    transition: all 0.6s ease;
+}
+
+.line-pane:hover+.line-pane .side-label,
+.lines-container:has(.innovation-pane:hover) .heritage-pane .side-label {
+    opacity: 0.2;
+}
+
+.line-pane:has(+ .line-pane:hover),
+.line-pane:hover+.line-pane {
+    width: 30%;
+}
+
+.heritage-pane {
+    background-color: var(--color-cotton);
+    color: var(--color-ink);
+    border-right: 1px solid rgba(26, 26, 26, 0.03);
+}
+
+.innovation-pane {
+    background-color: var(--color-precision-dark);
+    color: var(--color-cotton);
+}
+
+.line-content {
+    position: relative;
+    z-index: 10;
+    width: 400px;
+    flex-shrink: 0;
+    padding: 2rem;
+}
+
+.line-sub {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+}
+
+.line-title {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.line-desc {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    line-height: 2;
+    opacity: 0.75;
+    margin-bottom: 4rem;
+    word-break: keep-all;
+}
+
+.spec-list {
+    list-style: none;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.spec-list li {
+    margin-bottom: 1.5rem;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.spec-list li::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: currentColor;
+}
+
+.side-label {
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: rotate(-90deg) translateY(-50%);
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    opacity: 0.4;
+    text-transform: uppercase;
+    transition: opacity 0.6s ease, left 0.6s ease;
+    z-index: 5;
+}
+
+.line-pane:hover .side-label {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Scene 2: Philosophy Chart Styles */
+.philosophy-chart {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.svg-visible {
+    overflow: visible;
+}
+
+.chart-axis-label {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    fill: #333;
+    font-weight: bold;
+}
+
+.chart-year-text {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    fill: #333;
+    opacity: 0.3;
+    font-weight: bold;
+}
+
+.chart-label-competitor {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    fill: #999;
+    opacity: 0;
+}
+
+.chart-label-yeongjin {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: bold;
+    fill: var(--color-ink);
+    opacity: 0;
+}
+
+.event-marker {
+    stroke: red;
+    stroke-dasharray: 4;
+    opacity: 0;
+}
+
+.event-text {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    fill: #d00;
+    opacity: 0;
+    font-weight: bold;
+}
+
+/* Chart Lines */
+.competitor-line-1 {
+    stroke: #999;
+}
+
+.competitor-line-2 {
+    stroke: #bbb;
+    opacity: 0.7;
+}
+
+.yeongjin-line {
+    stroke: var(--color-ink);
+}
+
+/* Footer Styles */
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.footer-standard {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+}
+
+.footer-copy {
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+/* Utility: Typography */
+.gowun-batang {
+    font-family: 'Gowun Batang', serif;
+}
+
+/* Nav Active Link Style */
+.nav-links a.active {
+    font-weight: 700;
+    opacity: 1;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+}
+
+.line-pane:hover+.line-pane .side-label,
+.lines-container:has(.innovation-pane:hover) .heritage-pane .side-label {
+    opacity: 0.6;
+}

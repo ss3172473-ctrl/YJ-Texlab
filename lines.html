@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE LINES | 혁신하며, 영진하다</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="noise-overlay"></div>
+    <div class="cursor-dot"></div>
+    <nav id="main-nav">
+        <div class="logo-box">
+            <span class="top">영진하며</span>
+            <span class="bottom">혁신하다</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/archive.html">THE NARRATIVE</a></li>
+            <li><a href="/lines.html">THE LINES</a></li>
+            <li><a href="/firsts.html">THE FIRSTS</a></li>
+            <li><a href="/certified.html">YEONGJIN CERTIFIED</a></li>
+            <li><a href="/contact.html">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <div class="lines-container">
+        <div class="line-pane heritage-pane">
+            <span class="side-label">HERITAGE</span>
+            <div class="line-content">
+                <span class="line-sub">The Origin 1960</span>
+                <h2 class="line-title">Heritage Line</h2>
+                <p class="line-desc">
+                    할아버지의 고집과 아버지의 설계를 그대로 복원한 라인.<br>
+                    "60년 전의 안목을 현재로 소환하다."
+                </p>
+                <ul class="spec-list">
+                    <li>ORIGINAL RESTORATION</li>
+                    <li>LIMITED PRODUCTION (소량 생산)</li>
+                    <li>PREMIUM PRICING (고가 정책)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="line-pane innovation-pane">
+            <span class="side-label">INNOVATION</span>
+            <div class="line-content">
+                <span class="line-sub">The Pulse 2026</span>
+                <h2 class="line-title">Innovation Line</h2>
+                <p class="line-desc">
+                    글로벌 기술력과 현대적 감각을 결합한 라인.<br>
+                    "가문의 안목을 전 세계로 확장하다."
+                </p>
+                <ul class="spec-list">
+                    <li>GLOBAL STANDARD</li>
+                    <li>HIGH FUNCTIONALITY (고기능성)</li>
+                    <li>RATIONAL PRICING (합리적 가격)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { gsap } from 'gsap';
+
+        // Pane Entrance Animation
+        gsap.from('.line-pane', {
+            width: '0%',
+            duration: 1.8,
+            ease: 'expo.inOut',
+            stagger: 0.2
+        });
+
+        // Content Entrance Animation
+        gsap.from('.line-content', {
+            y: 50,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.4,
+            ease: 'power3.out',
+            delay: 1.0 // Start after panes expand
+        });
+
+        gsap.from('.side-label', {
+            opacity: 0,
+            duration: 1,
+            delay: 2.5
+        });
+    </script>
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
