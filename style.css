@@ -1173,20 +1173,19 @@ body {
         /* Ensure visible on mobile as slide */
     }
 
-    /* Technical Achievements Slider (Carousel 3 Slides) */
+    /* Technical Achievements Vertical Stack (Reverted) */
     .growth-stats-grid {
         display: flex;
-        flex-direction: row;
-        /* Force row for slider */
-        flex-wrap: nowrap;
-        /* No wrapping */
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 1rem;
+        flex-direction: column;
+        /* Reverted to column */
+        gap: 3.5rem;
+        /* Restored gap */
         padding-top: 2rem;
-        padding-bottom: 2rem;
-        /* Space for scroll */
-        scrollbar-width: none;
+        padding-bottom: 0;
+        overflow-x: visible;
+        /* Corrected overflow */
+        scroll-snap-type: none;
+        /* Removed snap */
     }
 
     .growth-stats-grid::-webkit-scrollbar {
@@ -1194,12 +1193,17 @@ body {
     }
 
     .stat-col {
-        min-width: 85%;
-        /* Slightly less than 100% to show next slide hint */
-        scroll-snap-align: center;
-        background: rgba(255, 255, 255, 0.5);
-        padding: 1.5rem;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        min-width: 0;
+        /* Removed slider width */
+        width: 100%;
+        /* Full width */
+        scroll-snap-align: none;
+        background: transparent;
+        /* Removed card background if not needed, or keep it subtle */
+        padding: 0;
+        /* Reset padding if card style is removed, or keep it */
+        border: none;
+        /* Remove border if returning to original clean style */
     }
 
     .stat-col h4 {
