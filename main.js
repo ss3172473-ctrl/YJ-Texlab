@@ -220,13 +220,13 @@ const initAnimations = () => {
     if (isMobile) {
         // Sequential reveal for tag
         tl5.to({}, { duration: 1 }); // read text
-        tl5.to('#scene-5 .final-content-wrapper > *:not(.tag-visual)', {
+        tl5.to('#scene-5 .final-content-wrapper > *:not(.promise-tag)', {
             opacity: 0,
             y: -20,
             duration: 1,
             stagger: 0.1
         });
-        tl5.from('.tag-visual', {
+        tl5.from('.promise-tag', {
             opacity: 0,
             scale: 0.8,
             y: 30,

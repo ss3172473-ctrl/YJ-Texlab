@@ -1082,7 +1082,8 @@ body {
 @media (max-width: 768px) {
     .growth-stats-grid {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 3.5rem;
+        /* Increased gap for better mobile spacing */
         padding-top: 2rem;
     }
 
@@ -1787,6 +1788,36 @@ body {
     .promise-tag {
         margin: 0 auto;
         transform: scale(0.85);
+    }
+}
+
+@media (max-width: 768px) {
+    #scene-5 .split-text {
+        font-size: 1.6rem;
+    }
+
+    #scene-5 .sub-copy {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .promise-tag {
+        opacity: 0;
+        /* Hidden for GSAP sequential reveal */
+        width: 90%;
+        max-width: 320px;
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    #scene-5 .split-text {
+        font-size: 1.25rem;
+    }
+
+    #scene-5 .sub-copy {
+        font-size: 0.8rem;
     }
 }
 
