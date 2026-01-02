@@ -867,6 +867,25 @@ body {
     opacity: 0.9;
 }
 
+@media (max-width: 768px) {
+    .visual-asset-chart {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 80%;
+        height: 30vh;
+        margin: 2rem auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .visual-asset-chart {
+        width: 95%;
+        height: 25vh;
+        margin: 1rem auto;
+    }
+}
+
 .philosophy-chart {
     width: 100%;
     height: 100%;
