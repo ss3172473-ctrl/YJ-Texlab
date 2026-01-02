@@ -1042,9 +1042,34 @@ body {
 }
 
 @media (max-width: 768px) {
+    .ch4-slides-container {
+        height: auto;
+        min-height: 100vh;
+        display: block;
+        padding-top: 15vh;
+        padding-bottom: 5rem;
+    }
+
+    /* Reset absolute positioning for mobile flow */
     .ch4-slide-1 {
-        top: 50%;
-        width: 95%;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        margin-bottom: 5rem;
+        /* Space between Merchant story and Tech Achievements */
+    }
+
+    .ch4-slide-2 {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        opacity: 1 !important;
+        /* Force visibility */
+        pointer-events: auto;
     }
 
     .slide-visibility-wrapper {
