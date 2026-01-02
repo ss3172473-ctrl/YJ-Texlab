@@ -112,71 +112,107 @@ const initAnimations = () => {
     tl1.to('#scene-1 .bg-image', { scale: 1.05, opacity: 0.1, duration: 2, ease: 'power1.inOut' })
         .to('#scene-1 .reveal-up', { y: 0, opacity: 1, stagger: 0.3, duration: 1.5, ease: 'power2.out' }, '<');
 
+    // gsap.matchMedia() for responsive animations
+    const mm = gsap.matchMedia();
+
     // Scene 2: Philosophy (The Uncompromising Chart)
-    const tl2 = gsap.timeline({
-        scrollTrigger: {
-            trigger: '#scene-2',
-            start: 'top top',
-            end: '+=2000', // Pin longer for chart animation
-            scrub: 1.2,
-            pin: true,
-        }
+    mm.add("(min-width: 481px)", () => {
+        const tl2 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#scene-2',
+                start: 'top top',
+                end: '+=2000',
+                scrub: 1.2,
+                pin: true,
+            }
+        });
+
+        tl2.from('#scene-2 .bg-image', { scale: 1.1, opacity: 0, duration: 2 })
+            .to('#scene-2 .reveal-up', { y: 0, opacity: 1, stagger: 0.3, duration: 1 }, '<');
+
+        // Chart Animation Logic (only when pinning)
+        setupChartAnimation(tl2);
     });
 
-    tl2.from('#scene-2 .bg-image', { scale: 1.1, opacity: 0, duration: 2 })
-        .to('#scene-2 .reveal-up', { y: 0, opacity: 1, stagger: 0.3, duration: 1 }, '<');
+    mm.add("(max-width: 480px)", () => {
+        // No pinning on mobile, simple reveal
+        gsap.to('#scene-2 .reveal-up', {
+            scrollTrigger: {
+                trigger: '#scene-2',
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none reverse'
+            },
+            y: 0,
+            opacity: 1,
+            stagger: 0.2,
+            duration: 1
+        });
 
-    // Chart Animation Sequence (Synced)
-    const chartDuration = 5;
-
-    // 1. Year Counter 1960 -> 2025 (Synced with drawing)
-    let yearProxy = { val: 1960 };
-    tl2.to(yearProxy, {
-        val: 2025,
-        duration: chartDuration,
-        ease: 'none',
-        onUpdate: function () {
-            const el = document.getElementById('chart-year');
-            if (el) el.textContent = Math.floor(this.targets()[0].val);
-        }
-    }, 'start-chart');
-
-    // 2. Draw Yeongjin Line (Straight & Steady)
-    tl2.to('.yeongjin-line', { strokeDashoffset: 0, duration: chartDuration, ease: 'none' }, 'start-chart');
-
-    // 3. Draw Competitor Lines (Falling)
-    tl2.to('.competitor-line-1, .competitor-line-2', { strokeDashoffset: 0, duration: chartDuration, ease: 'none' }, 'start-chart');
-
-    // 4. Reveal Event "China Low Cost" - Appear around 2005
-    tl2.to('.event-marker, .event-text', { opacity: 1, duration: 0.5 }, 'start-chart+=3.4');
-
-    // 5. Reveal Labels Earlier (Start of chart)
-    tl2.to('.chart-label-yeongjin', { opacity: 1, duration: 1 }, 'start-chart+=0.5')
-        .to('.chart-label-competitor', { opacity: 1, duration: 1 }, 'start-chart+=1');
-
-
-
-
-    const tl4 = gsap.timeline({
-        scrollTrigger: {
-            trigger: '#scene-4',
-            start: 'top top',
-            end: '+=250%', // Slightly longer pin to accommodate the buffer
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1
-        }
+        // Static chart for mobile (already handled in CSS with opacity 1)
     });
 
-    tl4.to('#scene-4 .bg-image', { opacity: 0.15, duration: 2 })
-        .to('#scene-4 .reveal-up', { y: 0, opacity: 1, stagger: 0.3, duration: 1.5 }, '<');
+    function setupChartAnimation(timeline) {
+        const chartDuration = 5;
+        let yearProxy = { val: 1960 };
+        timeline.to(yearProxy, {
+            val: 2025,
+            duration: chartDuration,
+            ease: 'none',
+            onUpdate: function () {
+                const el = document.getElementById('chart-year');
+                if (el) el.textContent = Math.floor(this.targets()[0].val);
+            }
+        }, 'start-chart');
 
-    // Initial State is defined in CSS (Slide 1 visible, Slide 2 hidden)
+        timeline.to('.yeongjin-line', { strokeDashoffset: 0, duration: chartDuration, ease: 'none' }, 'start-chart');
+        timeline.to('.competitor-line-1, .competitor-line-2', { strokeDashoffset: 0, duration: chartDuration, ease: 'none' }, 'start-chart');
+        timeline.to('.event-marker, .event-text', { opacity: 1, duration: 0.5 }, 'start-chart+=3.4');
+        timeline.to('.chart-label-yeongjin', { opacity: 1, duration: 1 }, 'start-chart+=0.5')
+            .to('.chart-label-competitor', { opacity: 1, duration: 1 }, 'start-chart+=1');
+    }
 
-    // Transition Sequence
-    tl4.to('.ch4-slide-1', { opacity: 0, y: -50, duration: 1, ease: "power1.inOut" })
-        .to('.ch4-slide-2', { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" }, "-=0.5") // Overlap slightly
-        .to({}, { duration: 1 }); // Added scroll buffer (dead time) so users can read partners/countries
+
+
+
+    // Scene 4: Growth (Slides transition)
+    mm.add("(min-width: 481px)", () => {
+        const tl4 = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#scene-4',
+                start: 'top top',
+                end: '+=250%',
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1
+            }
+        });
+
+        tl4.to('#scene-4 .bg-image', { opacity: 0.15, duration: 2 })
+            .to('#scene-4 .reveal-up', { y: 0, opacity: 1, stagger: 0.3, duration: 1.5 }, '<');
+
+        tl4.to('.ch4-slide-1', { opacity: 0, y: -50, duration: 1, ease: "power1.inOut" })
+            .to('.ch4-slide-2', { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" }, "-=0.5")
+            .to({}, { duration: 1 });
+    });
+
+    mm.add("(max-width: 480px)", () => {
+        // Simple sequential reveal for mobile
+        gsap.to('#scene-4 .reveal-up', {
+            scrollTrigger: {
+                trigger: '#scene-4',
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            y: 0,
+            opacity: 1,
+            stagger: 0.2,
+            duration: 1
+        });
+
+        // Ensure slides are visible on mobile
+        gsap.set('.ch4-slide-1, .ch4-slide-2', { opacity: 1, y: 0 });
+    });
 
     // Brand Marquee Animation
     const marqueeAnim = gsap.to('.marquee-content', {
