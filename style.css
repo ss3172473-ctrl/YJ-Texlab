@@ -254,13 +254,19 @@ body {
 
 @media (max-width: 480px) {
     .hero-hanja {
-        font-size: 15vw;
+        font-size: 14vw;
         padding: 0.5rem;
     }
 
     .hero-hanja .korean-suffix {
         font-size: 0.35em;
         margin-top: 0.5rem;
+    }
+
+    .hanja-line {
+        white-space: normal !important;
+        display: block;
+        padding: 0.2rem;
     }
 }
 
@@ -479,23 +485,30 @@ body {
 
 @media (max-width: 480px) {
     .split-text {
-        font-size: 1.5rem;
-        margin-bottom: 1.2rem;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        white-space: normal !important;
+        word-break: keep-all;
     }
 
     .sub-copy {
         font-size: 0.85rem;
         padding-left: 1rem;
         line-height: 1.5;
+        max-width: 100%;
     }
 
     .scene-label {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         margin-bottom: 0.5rem;
     }
 
     .scene {
         padding: 0 1rem;
+    }
+
+    .nowrap-inline {
+        white-space: normal !important;
     }
 }
 
