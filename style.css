@@ -1411,6 +1411,23 @@ body {
     cursor: none;
 }
 
+@media (max-width: 768px) {
+    .certified-container {
+        padding: 8rem 5% 6rem;
+    }
+
+    .certified-title {
+        font-size: 2.5rem;
+    }
+
+    .tag-visual {
+        width: 160px;
+        height: 270px;
+        padding: 2rem;
+        margin-top: 4rem;
+    }
+}
+
 .shine-overlay {
     position: absolute;
     top: 0;
