@@ -238,6 +238,20 @@ body {
     padding: 2rem;
 }
 
+@media (max-width: 768px) {
+    .hero-hanja {
+        font-size: 20vw;
+        padding: 1rem;
+    }
+
+    .hero-hanja .korean-suffix {
+        font-size: 0.4em;
+        display: block;
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+}
+
 .hanja-line {
     display: inline-block;
     position: relative;
@@ -964,6 +978,24 @@ body {
     color: var(--color-ink);
 }
 
+@media (max-width: 768px) {
+    .growth-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding-top: 2rem;
+    }
+
+    .stat-col h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .stat-col ul {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+}
+
 .stat-col h4 {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
@@ -1583,13 +1615,24 @@ body {
 @media (max-width: 1024px) {
     .final-content-wrapper {
         flex-direction: column;
-        gap: 3rem;
+        gap: 2rem;
         text-align: center;
     }
 
     .final-text-part,
     #scene-5 .sub-copy {
         text-align: center;
+        max-width: 100%;
+        margin-right: 0;
+    }
+
+    #scene-5 .split-text {
+        font-size: 1.8rem;
+    }
+
+    .promise-tag {
+        margin: 0 auto;
+        transform: scale(0.85);
     }
 }
 
