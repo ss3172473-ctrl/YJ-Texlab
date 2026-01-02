@@ -1743,6 +1743,41 @@ body {
     opacity: 0.05;
 }
 
+/* Mobile Responsiveness for THE LINES */
+@media (max-width: 768px) {
+    .lines-container {
+        flex-direction: column;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .line-pane {
+        width: 100% !important;
+        height: auto;
+        min-height: 80vh;
+        padding-top: 8rem;
+    }
+
+    .line-content {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .line-title {
+        font-size: 2rem;
+        white-space: normal;
+    }
+
+    .line-desc {
+        font-size: 0.95rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .side-label {
+        display: none;
+    }
+}
+
 .line-pane:hover {
     width: 70%;
 }
