@@ -918,6 +918,47 @@ body {
         width: 95%;
         height: 35vh;
     }
+
+    /* Scene 2 Text Scale Down */
+    #scene-2 .split-text {
+        font-size: 1.5rem !important;
+        /* Reduced from default */
+        line-height: 1.3;
+    }
+
+    #scene-2 .sub-copy {
+        font-size: 0.9rem;
+    }
+
+    /* Brand Marquee Compact */
+    .brand-marquee {
+        padding: 5px 0;
+        /* Reduced padding */
+        margin-bottom: 1rem;
+    }
+
+    .marquee-content img {
+        height: 25px;
+        /* Smaller logos */
+        margin-right: 20px;
+    }
+
+    /* Specific logo overrides for mobile */
+    .marquee-content img[alt="Beanpole"] {
+        height: 40px;
+    }
+
+    .marquee-content img[alt="LF"] {
+        height: 35px;
+    }
+
+    .marquee-content img[alt="E-Land"] {
+        height: 35px;
+    }
+
+    .marquee-content img[alt="Parkland"] {
+        height: 35px;
+    }
 }
 
 .philosophy-chart {
@@ -1042,6 +1083,19 @@ body {
     z-index: 10;
 }
 
+@media (max-width: 768px) {
+    #scene-5 {
+        margin-top: 15vh;
+        /* Ensure separation from Scene 4 */
+        padding-top: 5rem;
+    }
+
+    .final-scene-container {
+        padding-bottom: 5rem;
+        /* Space before footer */
+    }
+}
+
 .slide-visibility-wrapper {
     background: rgba(255, 255, 255, 0.85);
     padding: 1.25rem 2.5rem;
@@ -1080,11 +1134,72 @@ body {
 }
 
 @media (max-width: 768px) {
+
+    /* Merchant Text Slider */
+    .slide-visibility-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 0;
+        /* Remove padding to fit full width slides */
+        background: transparent;
+        /* Cleaner look */
+        box-shadow: none;
+        border: none;
+        scrollbar-width: none;
+        /* Hide scrollbar Firefox */
+    }
+
+    .slide-visibility-wrapper::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar Chrome/Safari */
+    }
+
+    .merchant-part-1,
+    .merchant-part-2 {
+        min-width: 100%;
+        scroll-snap-align: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--color-ink);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        margin-right: 1rem;
+        /* Gap between slides */
+    }
+
+    .merchant-part-2.mobile-hidden {
+        display: block;
+        /* Ensure visible on mobile as slide */
+    }
+
+    /* Technical Achievements Slider (Carousel 3 Slides) */
     .growth-stats-grid {
-        grid-template-columns: 1fr;
-        gap: 3.5rem;
-        /* Increased gap for better mobile spacing */
+        display: flex;
+        flex-direction: row;
+        /* Force row for slider */
+        flex-wrap: nowrap;
+        /* No wrapping */
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
         padding-top: 2rem;
+        padding-bottom: 2rem;
+        /* Space for scroll */
+        scrollbar-width: none;
+    }
+
+    .growth-stats-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .stat-col {
+        min-width: 85%;
+        /* Slightly less than 100% to show next slide hint */
+        scroll-snap-align: center;
+        background: rgba(255, 255, 255, 0.5);
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .stat-col h4 {
@@ -1149,13 +1264,33 @@ body {
 }
 
 @media (max-width: 480px) {
+    #main-nav {
+        height: 50px;
+        /* Reduced height */
+        padding: 0 1rem;
+    }
+
     .logo-box {
-        transform: scale(0.65);
+        transform: scale(0.7);
+        /* Adjusted scale */
+        flex-direction: row;
+        /* Make logo text inline */
+        width: auto;
+        /* Auto width to fit inline text */
+        height: auto;
+        border: none;
+        /* Optional: remove border if it looks too crowded, or keep it */
+        gap: 0.3rem;
+        /* Space between words */
+        padding: 0;
     }
 
     .logo-box span {
-        white-space: normal !important;
-        text-align: center;
+        white-space: nowrap !important;
+        /* Force single line */
+        font-size: 1rem;
+        /* Adjust font size if needed */
+        line-height: 1;
     }
 }
 
