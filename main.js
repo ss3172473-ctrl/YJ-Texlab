@@ -1,18 +1,66 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from '@studio-freight/lenis';
 import { initSoundDesign } from './sound';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// --- Premium Smooth Scroll (Lenis) ---
+const lenis = new Lenis({
+    duration: 1.5,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+});
+
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+
+gsap.ticker.lagSmoothing(0);
+
 const initAnimations = () => {
-    // Hero Branding Entrance (Refined)
+    // --- Cinematic Intro Sequence ---
+    const introTl = gsap.timeline();
+
+    introTl.to('.intro-text', {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power3.out',
+        delay: 0.5
+    })
+        .to('.intro-text', {
+            opacity: 0,
+            y: -30,
+            duration: 1.2,
+            delay: 1.2,
+            ease: 'power2.inOut'
+        })
+        .to('#intro-overlay', {
+            opacity: 0,
+            duration: 1.5,
+            ease: 'power2.inOut',
+            onComplete: () => {
+                const overlay = document.getElementById('intro-overlay');
+                if (overlay) overlay.style.display = 'none';
+            }
+        }, "-=0.5");
+
+    // Hero Branding Entrance (Refined & Synced)
     gsap.to('#scene-hero .reveal-up', {
         y: 0,
         opacity: 1,
         stagger: 0.15,
         duration: 1.8,
         ease: 'expo.out',
-        delay: 0.6
+        delay: 3.5 // Delayed to sync with intro
     });
 
     // --- 1. Sound Design Integration ---
