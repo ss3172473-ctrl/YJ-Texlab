@@ -130,36 +130,32 @@ body {
 
 .logo-box {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Align to left */
     padding: 0;
-    border: 2px solid var(--color-ink);
-    line-height: 0.8;
-    text-align: center;
+    margin: 0;
+    border: none;
+    /* Removed border */
     background: transparent;
-    color: var(--color-ink);
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-    font-family: 'Gowun Batang', serif;
-    width: 84px;
-    /* Fixed width to ensure packed look */
-    height: 48px;
-    justify-content: center;
-    overflow: hidden;
+    width: auto;
+    /* Allow auto width */
+    height: 60px;
+    /* Slightly taller to accommodate image */
 }
 
-.logo-box .top,
-.logo-box .bottom {
-    font-size: 1.15rem;
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    color: inherit;
+.main-logo {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    /* Maintain aspect ratio */
     display: block;
-    width: 100%;
+    /* Adjust scale to mitigate whitespace if necessary, but start with safe fit */
 }
 
-.logo-box .top {
-    margin-bottom: -2px;
-}
+/* Removed text logo specific styles (.top, .bottom) */
 
 .nav-links {
     display: flex;
