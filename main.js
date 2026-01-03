@@ -46,31 +46,34 @@ class PageTransitionManager {
             }
         });
 
-        // Animate In on Load
+        // Handle browser back/forward cache
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                this.curtain.style.opacity = '0';
+            }
+        });
+
+        // Initial load reveal
         this.animateIn();
     }
 
     animateOut(url) {
+        // Soft Fade In (Covering screen)
         gsap.to(this.curtain, {
-            scaleY: 1,
-            transformOrigin: 'bottom',
-            duration: 0.8,
-            ease: 'power4.inOut',
-            onComplete: () => {
-                window.location.href = url;
-            }
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power1.inOut',
+            onComplete: () => { window.location.href = url; }
         });
     }
 
     animateIn() {
-        gsap.fromTo(this.curtain, {
-            scaleY: 1,
-            transformOrigin: 'top'
-        }, {
-            scaleY: 0,
+        // Soft Fade Out (Revealing new page)
+        gsap.to(this.curtain, {
+            opacity: 0,
             duration: 1.2,
-            ease: 'power4.inOut',
-            delay: 0.2
+            ease: 'power1.inOut',
+            delay: 0.1
         });
     }
 }
@@ -171,57 +174,48 @@ const initEditorialReveals = () => {
 
 
 const initAnimations = () => {
-    // --- Cinematic Intro Sequence (Refined) ---
+    // --- Cinematic Intro Sequence (Refined - Organic) ---
     const introTl = gsap.timeline();
 
-    // 1. Initial State Set (Safety)
+    // 1. Initial State
     gsap.set('.intro-logo-wrapper', {
-        filter: 'blur(10px)',
-        scale: 1.5,
-        opacity: 0
+        opacity: 0,
+        scale: 1.05
     });
 
-    // 2. Impact Entrance (Blur In + Scale Down) - "Tac!"
+    // 2. Breathing Reveal (Slow Fade In + Gentle Scale)
     introTl.to('.intro-logo-wrapper', {
-        filter: 'blur(0px)',
-        scale: 1,
         opacity: 1,
-        duration: 0.8,
-        ease: 'power4.out', // Crisp stop
-        delay: 0.2
+        scale: 1, // settling down
+        duration: 1.8,
+        ease: 'power2.out'
     })
-        // 3. Shimmer Effect (Light Sweep)
+        // 3. Subtle Shimmer (Ghostly)
         .to('.intro-shine', {
-            left: '150%', // Move across
-            duration: 0.6,
-            ease: 'power2.inOut'
-        }, "-=0.2") // Start slightly before impact settles
-        // 4. Quick Exit (Zoom Out + Fade)
-        .to('.intro-logo-wrapper', {
-            scale: 1.1, // Subtle bump up
-            opacity: 0,
-            filter: 'blur(5px)', // Fade out into blur
-            duration: 0.5,
-            ease: 'power2.in',
-            delay: 0.3 // Short hold
-        })
+            left: '150%',
+            duration: 2.0,
+            ease: 'power1.inOut'
+        }, "-=1.0")
+        // 4. Organic Exit (Fade Out)
         .to('#intro-overlay', {
             opacity: 0,
-            duration: 0.5,
+            duration: 1.5,
+            ease: 'power1.inOut',
+            delay: 0.5,
             onComplete: () => {
                 const overlay = document.getElementById('intro-overlay');
                 if (overlay) overlay.style.display = 'none';
             }
-        }, "-=0.1");
+        });
 
-    // Hero Branding Entrance (Refined & Synced)
+    // Hero Branding Entrance (Synced with organic flow)
     gsap.to('#scene-hero .reveal-up', {
         y: 0,
         opacity: 1,
-        stagger: 0.15,
-        duration: 1.8,
-        ease: 'expo.out', // Reduced delay as curtain handles load
-        delay: 2.2 // Synced after intro (0.2 + 0.8 + 0.3 + 0.5 approx)
+        stagger: 0.2, // slower stagger
+        duration: 2.0, // slower reveal
+        ease: 'power2.out',
+        delay: 3.5 // roughly 1.8 + hold + fade start
     });
 
     // --- Sound Design Integration ---
