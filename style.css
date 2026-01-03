@@ -150,8 +150,7 @@ body {
     width: auto;
     object-fit: contain;
     display: block;
-    mix-blend-mode: multiply;
-    /* Blends white background into the page */
+    /* mix-blend-mode removed: image is now transparent */
 }
 
 /* Removed text logo specific styles (.top, .bottom) */
