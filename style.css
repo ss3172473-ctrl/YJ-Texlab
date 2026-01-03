@@ -132,27 +132,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    /* Align to left */
-    padding: 0;
+    padding: 10px 0;
+    /* Vertical padding to prevent touching edges */
     margin: 0;
     border: none;
-    /* Removed border */
     background: transparent;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     width: auto;
-    /* Allow auto width */
-    height: 60px;
-    /* Slightly taller to accommodate image */
+    height: var(--header-height);
+    /* Full header height */
 }
 
 .main-logo {
     height: 100%;
+    /* Maximize within the padded box */
     width: auto;
     object-fit: contain;
-    /* Maintain aspect ratio */
     display: block;
-    /* Adjust scale to mitigate whitespace if necessary, but start with safe fit */
+    mix-blend-mode: multiply;
+    /* Blends white background into the page */
 }
 
 /* Removed text logo specific styles (.top, .bottom) */
