@@ -1043,20 +1043,126 @@ body {
     /* Center align container content */
 }
 
-/* Specific adjustment for Chapter 3 Developer Path text to remove 'stuck to left' feel */
-.ch4-slide-1 .sub-copy {
-    text-align: center;
-    border-left: none;
-    padding-left: 0;
-    margin: 0 auto;
-    max-width: 800px;
-    /* Slightly wider for better balance */
+/* --- Chapter 3 Typographic Redesign --- */
+.growth-story-enhanced {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    color: var(--color-ink);
 }
 
-.ch4-slide-1 .split-text {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+/* Highlight Serif in Title */
+.highlight-serif {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--color-ink);
+    /* Keep it dark/sharp */
+}
+
+/* Opening Paragraph */
+.story-opening {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(26, 26, 26, 0.8);
+    word-break: keep-all;
+}
+
+.emphasize-title {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    display: block;
+    margin-top: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+/* Contrast Section: Conflict vs Resolution */
+.story-contrast {
+    position: relative;
+    padding: 2rem 0;
+    width: 100%;
+    max-width: 600px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.conflict-side {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: rgba(26, 26, 26, 0.5);
+    /* Faded for 'what if' */
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.resolution-side {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+    font-weight: 400;
+}
+
+.emphasize-quote {
+    font-weight: 800;
+    font-size: 1.5rem;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* Climax Section */
+.story-climax {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(26, 26, 26, 0.9);
+}
+
+.emphasize-bold {
+    font-weight: 700;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(0, 0, 0, 0.3);
+}
+
+.emphasize-final {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    color: var(--color-heritage-accent);
+    /* Special accent color */
+}
+
+/* Mobile Adjustments for Typographic Story */
+@media (max-width: 768px) {
+    .growth-story-enhanced {
+        gap: 2rem;
+    }
+
+    .emphasize-title {
+        font-size: 1.5rem;
+    }
+
+    .story-contrast {
+        padding: 1.5rem 0;
+        width: 100%;
+    }
+
+    .emphasize-quote {
+        font-size: 1.3rem;
+    }
+
+    .emphasize-final {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 768px) {
