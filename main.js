@@ -25,7 +25,55 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 
-// PageTransitionManager Removed as per Philosophy Alignment
+// --- 1. Page Transition Manager (The Curtain) ---
+class PageTransitionManager {
+    constructor() {
+        this.curtain = document.createElement('div');
+        this.curtain.className = 'page-transition-curtain';
+        document.body.appendChild(this.curtain);
+        this.initListeners();
+    }
+
+    initListeners() {
+        // Intercept internal links
+        document.querySelectorAll('a').forEach(link => {
+            if (link.hostname === window.location.hostname && !link.hash && link.target !== '_blank') {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (link.href === window.location.href) return;
+                    this.animateOut(link.href);
+                });
+            }
+        });
+
+        // Animate In on Load
+        this.animateIn();
+    }
+
+    animateOut(url) {
+        gsap.to(this.curtain, {
+            scaleY: 1,
+            transformOrigin: 'bottom',
+            duration: 0.8,
+            ease: 'power4.inOut',
+            onComplete: () => {
+                window.location.href = url;
+            }
+        });
+    }
+
+    animateIn() {
+        gsap.fromTo(this.curtain, {
+            scaleY: 1,
+            transformOrigin: 'top'
+        }, {
+            scaleY: 0,
+            duration: 1.2,
+            ease: 'power4.inOut',
+            delay: 0.2
+        });
+    }
+}
 
 // --- 2. Magnetic Cursor Interaction ---
 class MagneticCursor {
@@ -123,48 +171,43 @@ const initEditorialReveals = () => {
 
 
 const initAnimations = () => {
-    // --- Cinematic Intro Sequence (Refined - Organic) ---
+    // --- Cinematic Intro Sequence ---
     const introTl = gsap.timeline();
 
-    // 1. Initial State
-    gsap.set('.intro-logo-wrapper', {
-        opacity: 0,
-        scale: 1.05
-    });
-
-    // 2. Breathing Reveal (Slow Fade In + Gentle Scale)
-    introTl.to('.intro-logo-wrapper', {
-        opacity: 1,
-        scale: 1, // settling down
-        duration: 1.8,
-        ease: 'power2.out'
-    })
-        // 3. Subtle Shimmer (Ghostly)
-        .to('.intro-shine', {
-            left: '150%',
-            duration: 2.0,
-            ease: 'power1.inOut'
-        }, "-=1.0")
-        // 4. Organic Exit (Fade Out)
-        .to('#intro-overlay', {
-            opacity: 0,
+    if (document.querySelector('.intro-text')) {
+        introTl.to('.intro-text', {
+            y: 0,
+            opacity: 1,
             duration: 1.5,
-            ease: 'power1.inOut',
-            delay: 0.5,
-            onComplete: () => {
-                const overlay = document.getElementById('intro-overlay');
-                if (overlay) overlay.style.display = 'none';
-            }
-        });
+            ease: 'power3.out',
+            delay: 0.5
+        })
+            .to('.intro-text', {
+                opacity: 0,
+                y: -30,
+                duration: 1.2,
+                delay: 1.2,
+                ease: 'power2.inOut'
+            })
+            .to('#intro-overlay', {
+                opacity: 0,
+                duration: 1.5,
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    const overlay = document.getElementById('intro-overlay');
+                    if (overlay) overlay.style.display = 'none';
+                }
+            }, "-=0.5");
+    }
 
-    // Hero Branding Entrance (Synced with organic flow)
+    // Hero Branding Entrance (Refined & Synced)
     gsap.to('#scene-hero .reveal-up', {
         y: 0,
         opacity: 1,
-        stagger: 0.2, // slower stagger
-        duration: 2.0, // slower reveal
-        ease: 'power2.out',
-        delay: 3.5 // roughly 1.8 + hold + fade start
+        stagger: 0.15,
+        duration: 1.8,
+        ease: 'expo.out',
+        delay: 0.5 // Reduced delay as curtain handles load
     });
 
     // --- Sound Design Integration ---
@@ -345,10 +388,9 @@ const initAnimations = () => {
     }
 
     // Initialize New Managers
+    new PageTransitionManager();
     new MagneticCursor();
     initEditorialReveals();
-
-    // Page Transition Removed (Philosophy Alignment)
 };
 
 // Tactical Scroll Momentum
