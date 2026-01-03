@@ -1037,19 +1037,21 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 1000px;
+    max-width: 500px;
+    /* Reduced from 1000px to 500px as requested */
     z-index: 5;
     text-align: center;
     /* Center align container content */
 }
 
-/* --- Chapter 3 Typographic Redesign --- */
+/* --- Chapter 3 Typographic Redesign (Refined & Compact) --- */
 .growth-story-enhanced {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
-    margin-top: 2rem;
+    gap: 2rem;
+    /* Reduced gap */
+    margin-top: 1.5rem;
     color: var(--color-ink);
 }
 
@@ -1064,61 +1066,69 @@ body {
 /* Opening Paragraph */
 .story-opening {
     font-family: var(--font-sans);
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    /* Reduced size */
+    line-height: 1.7;
     color: rgba(26, 26, 26, 0.8);
     word-break: keep-all;
 }
 
 .emphasize-title {
     font-family: var(--font-serif);
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    /* Reduced size */
     font-weight: 700;
     color: var(--color-ink);
     display: block;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
     letter-spacing: -0.02em;
 }
 
 /* Contrast Section: Conflict vs Resolution */
 .story-contrast {
     position: relative;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
+    /* Reduced padding */
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
+    /* Fit to container */
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .conflict-side {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    /* Reduced size */
     color: rgba(26, 26, 26, 0.5);
     /* Faded for 'what if' */
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
+    margin-bottom: 1rem;
+    line-height: 1.5;
 }
 
 .resolution-side {
     font-family: var(--font-serif);
-    font-size: 1.3rem;
-    line-height: 1.5;
+    font-size: 1.15rem;
+    /* Reduced size */
+    line-height: 1.4;
     color: var(--color-ink);
     font-weight: 400;
 }
 
 .emphasize-quote {
     font-weight: 800;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    /* Reduced size */
     display: block;
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
 }
 
 /* Climax Section */
 .story-climax {
     font-family: var(--font-sans);
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    /* Reduced size */
+    line-height: 1.7;
     color: rgba(26, 26, 26, 0.9);
 }
 
@@ -1134,9 +1144,10 @@ body {
 .emphasize-final {
     display: block;
     font-family: var(--font-serif);
-    font-size: 1.4rem;
+    font-size: 1.25rem;
+    /* Reduced size */
     font-weight: 700;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
     color: var(--color-heritage-accent);
     /* Special accent color */
 }
@@ -1144,24 +1155,29 @@ body {
 /* Mobile Adjustments for Typographic Story */
 @media (max-width: 768px) {
     .growth-story-enhanced {
-        gap: 2rem;
+        gap: 1.5rem;
     }
 
     .emphasize-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .story-contrast {
-        padding: 1.5rem 0;
+        padding: 1.2rem 0;
         width: 100%;
     }
 
     .emphasize-quote {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .emphasize-final {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+
+    .ch4-slide-1 {
+        max-width: 90%;
+        /* On mobile, revert to wider for readability */
     }
 }
 
