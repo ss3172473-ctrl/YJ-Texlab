@@ -25,58 +25,7 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 
-// --- 1. Page Transition Manager (The Curtain) ---
-class PageTransitionManager {
-    constructor() {
-        this.curtain = document.createElement('div');
-        this.curtain.className = 'page-transition-curtain';
-        document.body.appendChild(this.curtain);
-        this.initListeners();
-    }
-
-    initListeners() {
-        // Intercept internal links
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash && link.target !== '_blank') {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (link.href === window.location.href) return;
-                    this.animateOut(link.href);
-                });
-            }
-        });
-
-        // Handle browser back/forward cache
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                this.curtain.style.opacity = '0';
-            }
-        });
-
-        // Initial load reveal
-        this.animateIn();
-    }
-
-    animateOut(url) {
-        // Soft Fade In (Covering screen)
-        gsap.to(this.curtain, {
-            opacity: 1,
-            duration: 0.6,
-            ease: 'power1.inOut',
-            onComplete: () => { window.location.href = url; }
-        });
-    }
-
-    animateIn() {
-        // Soft Fade Out (Revealing new page)
-        gsap.to(this.curtain, {
-            opacity: 0,
-            duration: 1.2,
-            ease: 'power1.inOut',
-            delay: 0.1
-        });
-    }
-}
+// PageTransitionManager Removed as per Philosophy Alignment
 
 // --- 2. Magnetic Cursor Interaction ---
 class MagneticCursor {
@@ -396,9 +345,10 @@ const initAnimations = () => {
     }
 
     // Initialize New Managers
-    new PageTransitionManager();
     new MagneticCursor();
     initEditorialReveals();
+
+    // Page Transition Removed (Philosophy Alignment)
 };
 
 // Tactical Scroll Momentum
