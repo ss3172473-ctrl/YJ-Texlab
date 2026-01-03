@@ -1079,8 +1079,9 @@ body {
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-ink);
-    display: block;
-    margin-top: 0.2rem;
+    display: inline;
+    /* Changed from block to inline */
+    /* margin-top: 0.2rem; -- Removed as inline elements don't respect vertical margins */
     letter-spacing: -0.02em;
 }
 
@@ -1111,7 +1112,8 @@ body {
 .resolution-side {
     font-family: var(--font-serif);
     font-size: 1.2rem;
-    line-height: 1.4;
+    line-height: 1.8;
+    /* Increased line height for better inline readability */
     color: var(--color-ink);
     font-weight: 400;
 }
@@ -1119,15 +1121,16 @@ body {
 .emphasize-quote {
     font-weight: 800;
     font-size: 1.35rem;
-    display: block;
-    margin-top: 0.2rem;
+    display: inline;
+    /* Changed from block to inline */
+    /* margin-top: 0.2rem; -- Removed as inline elements don't respect vertical margins */
 }
 
 /* Climax Section */
 .story-climax {
     font-family: var(--font-sans);
     font-size: 1.05rem;
-    line-height: 1.6;
+    line-height: 1.8;
     color: rgba(26, 26, 26, 0.9);
     margin-top: 0;
 }
@@ -1142,12 +1145,12 @@ body {
 }
 
 .emphasize-final {
-    display: block;
+    display: inline;
+    /* Changed from block to inline */
     font-family: var(--font-serif);
     font-size: 1.3rem;
     font-weight: 700;
-    margin-top: 0.5rem;
-    /* Reduced margin */
+    /* margin-top: 0.5rem; -- Removed as inline elements don't respect vertical margins */
     color: var(--color-heritage-accent);
     /* Special accent color */
 }
