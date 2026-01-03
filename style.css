@@ -1039,6 +1039,24 @@ body {
     width: 90%;
     max-width: 1000px;
     z-index: 5;
+    text-align: center;
+    /* Center align container content */
+}
+
+/* Specific adjustment for Chapter 3 Developer Path text to remove 'stuck to left' feel */
+.ch4-slide-1 .sub-copy {
+    text-align: center;
+    border-left: none;
+    padding-left: 0;
+    margin: 0 auto;
+    max-width: 800px;
+    /* Slightly wider for better balance */
+}
+
+.ch4-slide-1 .split-text {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (max-width: 768px) {
