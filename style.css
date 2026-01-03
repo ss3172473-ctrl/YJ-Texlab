@@ -758,8 +758,13 @@ body {
     opacity: 0.1;
 }
 
-#scene-hero
-/* --- UX/UI ESSENTIALS --- */
+#scene-hero .line-content {
+    max-width: 600px;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- UX/UI UPGRADES --- */
 
 /* 1. Certified Page Logo Fix */
 .certified-page .main-logo {
@@ -776,7 +781,6 @@ body {
     height: 100%;
     background-color: #000;
     z-index: 99999;
-    /* Below curtain (100000) */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -836,78 +840,6 @@ html.lenis {
 
 .lenis.lenis-scrolling iframe {
     pointer-events: none;
-}
-
-/* --- HIGH-END UX ADDITIONS --- */
-
-/* 1. Page Transition Curtain */
-.page-transition-curtain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    z-index: 100000;
-    pointer-events: none;
-    transform: scaleY(0);
-    transform-origin: bottom;
-}
-
-/* 2. Editorial Image Reveal (Mask) */
-/* 2. Editorial Reveal (Mask) */
-.editorial-reveal-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: block;
-    /* Ensure it respects layout */
-}
-
-.editorial-reveal-content {
-    display: block;
-    width: 100%;
-    height: 100%;
-    transform: scale(1.2);
-    /* Start zoomed/scaled in */
-    transform-origin: center;
-    opacity: 0;
-    /* Handled by JS */
-    will-change: transform, opacity;
-}
-
-img.editorial-reveal-content {
-    object-fit: cover;
-}
-
-.editorial-reveal-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-cotton);
-    /* Matches bg */
-    z-index: 2;
-    transform-origin: top;
-    will-change: height;
-}
-
-/* 3. Magnetic Attributes */
-[data-magnetic] {
-    display: inline-block;
-    transition: transform 0.1s linear;
-    /* Quick local transition reset by GSAP */
-}
-
-/* Cursor Growth on Hover */
-.cursor-dot.magnetic-active {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(18, 18, 18, 0.1);
-    /* Transparent ink */
-    border: 1px solid var(--color-ink);
-    mix-blend-mode: normal;
-    backdrop-filter: blur(2px);
 }
 
 #scene-hero .content {

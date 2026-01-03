@@ -25,180 +25,33 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 
-// --- 1. Page Transition Manager (The Curtain) ---
-class PageTransitionManager {
-    constructor() {
-        this.curtain = document.createElement('div');
-        this.curtain.className = 'page-transition-curtain';
-        document.body.appendChild(this.curtain);
-        this.initListeners();
-    }
-
-    initListeners() {
-        // Intercept internal links
-        document.querySelectorAll('a').forEach(link => {
-            if (link.hostname === window.location.hostname && !link.hash && link.target !== '_blank') {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (link.href === window.location.href) return;
-                    this.animateOut(link.href);
-                });
-            }
-        });
-
-        // Animate In on Load
-        this.animateIn();
-    }
-
-    animateOut(url) {
-        gsap.to(this.curtain, {
-            scaleY: 1,
-            transformOrigin: 'bottom',
-            duration: 0.8,
-            ease: 'power4.inOut',
-            onComplete: () => {
-                window.location.href = url;
-            }
-        });
-    }
-
-    animateIn() {
-        gsap.fromTo(this.curtain, {
-            scaleY: 1,
-            transformOrigin: 'top'
-        }, {
-            scaleY: 0,
-            duration: 1.2,
-            ease: 'power4.inOut',
-            delay: 0.2
-        });
-    }
-}
-
-// --- 2. Magnetic Cursor Interaction ---
-class MagneticCursor {
-    constructor() {
-        this.cursor = document.querySelector('.cursor-dot');
-        this.items = document.querySelectorAll('.logo-box, .nav-links a, .submit-btn, .dot');
-        this.pos = { x: 0, y: 0 };
-        this.mouse = { x: 0, y: 0 };
-        this.init();
-    }
-
-    init() {
-        window.addEventListener('mousemove', e => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
-        });
-
-        this.items.forEach(item => {
-            item.addEventListener('mouseenter', () => this.cursor.classList.add('magnetic-active'));
-            item.addEventListener('mouseleave', () => {
-                this.cursor.classList.remove('magnetic-active');
-                gsap.to(item, { x: 0, y: 0, duration: 0.3 }); // Reset element position
-            });
-            item.addEventListener('mousemove', e => this.magnetize(e, item));
-        });
-
-        gsap.ticker.add(() => this.render());
-    }
-
-    magnetize(e, item) {
-        const rect = item.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        // Attraction strength
-        const matchX = (e.clientX - centerX) * 0.3;
-        const matchY = (e.clientY - centerY) * 0.3;
-
-        // Move element slightly towards mouse
-        gsap.to(item, {
-            x: matchX,
-            y: matchY,
-            duration: 0.2,
-            ease: 'power2.out'
-        });
-    }
-
-    render() {
-        // Lerp cursor position
-        const dt = 1.0 - Math.pow(1.0 - 0.2, gsap.ticker.deltaRatio());
-        this.pos.x += (this.mouse.x - this.pos.x) * dt;
-        this.pos.y += (this.mouse.y - this.pos.y) * dt;
-
-        if (this.cursor) {
-            gsap.set(this.cursor, {
-                x: this.pos.x,
-                y: this.pos.y
-            });
-        }
-    }
-}
-
-// --- 3. Editorial Image Reveal (Mask) ---
-const initEditorialReveals = () => {
-    // Select all elements with .editorial-reveal-wrapper
-    const wrappers = document.querySelectorAll('.editorial-reveal-wrapper');
-
-    wrappers.forEach(wrapper => {
-        const image = wrapper.querySelector('.editorial-reveal-content') || wrapper.firstElementChild; // Flexible targeting
-        const mask = wrapper.querySelector('.editorial-reveal-mask');
-
-        if (!image || !mask) return;
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: wrapper,
-                start: "top 80%",
-            }
-        });
-
-        // Reveal sequence: Mask moves, Image scales down to normal
-        tl.to(mask, {
-            height: '0%', // Reveal from top to bottom
-            duration: 1.5,
-            ease: 'power4.inOut'
-        })
-            .to(image, {
-                scale: 1, // Zoom out effect
-                opacity: 1,
-                duration: 1.5,
-                ease: 'power2.out'
-            }, "<"); // Run simultaneously
-    });
-};
-
-
 const initAnimations = () => {
     // --- Cinematic Intro Sequence ---
     const introTl = gsap.timeline();
 
-    if (document.querySelector('.intro-text')) {
-        introTl.to('.intro-text', {
-            y: 0,
-            opacity: 1,
-            duration: 1.5,
-            ease: 'power3.out',
-            delay: 0.5
+    introTl.to('.intro-text', {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: 'power3.out',
+        delay: 0.5
+    })
+        .to('.intro-text', {
+            opacity: 0,
+            y: -30,
+            duration: 1.2,
+            delay: 1.2,
+            ease: 'power2.inOut'
         })
-            .to('.intro-text', {
-                opacity: 0,
-                y: -30,
-                duration: 1.2,
-                delay: 1.2,
-                ease: 'power2.inOut'
-            })
-            .to('#intro-overlay', {
-                opacity: 0,
-                duration: 1.5,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    const overlay = document.getElementById('intro-overlay');
-                    if (overlay) overlay.style.display = 'none';
-                }
-            }, "-=0.5");
-    }
+        .to('#intro-overlay', {
+            opacity: 0,
+            duration: 1.5,
+            ease: 'power2.inOut',
+            onComplete: () => {
+                const overlay = document.getElementById('intro-overlay');
+                if (overlay) overlay.style.display = 'none';
+            }
+        }, "-=0.5");
 
     // Hero Branding Entrance (Refined & Synced)
     gsap.to('#scene-hero .reveal-up', {
@@ -207,13 +60,13 @@ const initAnimations = () => {
         stagger: 0.15,
         duration: 1.8,
         ease: 'expo.out',
-        delay: 0.5 // Reduced delay as curtain handles load
+        delay: 3.5 // Delayed to sync with intro
     });
 
-    // --- Sound Design Integration ---
+    // --- 1. Sound Design Integration ---
     initSoundDesign();
 
-    // --- Dynamic Navigation Active State ---
+    // --- 2. Dynamic Navigation Active State ---
     function setActiveNavLink() {
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('.nav-links a');
@@ -234,6 +87,49 @@ const initAnimations = () => {
     // Add click listener to logo-box for home navigation
     document.querySelector('.logo-box').addEventListener('click', () => {
         window.location.href = '/';
+    });
+
+    // --- 3. Custom Cursor & Social/Nav Hover Sound ---
+    const cursorDot = document.querySelector('.cursor-dot');
+
+    // Check for touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        if (cursorDot) cursorDot.style.display = 'none';
+    }
+
+    // Blueprint Parallax & Cursor Interaction
+    // Optimized Mouse Follower
+    const moveCursor = (e) => {
+        const { clientX, clientY } = e;
+
+        // Blueprint parallax
+        const xPos = (clientX / window.innerWidth - 0.5) * 40; // Increased depth
+        const yPos = (clientY / window.innerHeight - 0.5) * 40;
+
+        gsap.to('.blueprint-layer', {
+            x: xPos,
+            y: yPos,
+            duration: 2,
+            ease: 'power2.out'
+        });
+
+        if (cursorDot) {
+            gsap.to(cursorDot, {
+                x: clientX,
+                y: clientY,
+                duration: 0.15, // Slight lag for "fluid" feel
+                ease: 'power2.out'
+            });
+        }
+    };
+
+    window.addEventListener('mousemove', moveCursor);
+
+    // Cursor Hover States
+    const interactables = document.querySelectorAll('a, button, .logo-box, .dot');
+    interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursorDot?.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorDot?.classList.remove('hover'));
     });
 
     // Scene 1: Origins
@@ -386,11 +282,6 @@ const initAnimations = () => {
             clearProps: "all"
         });
     }
-
-    // Initialize New Managers
-    new PageTransitionManager();
-    new MagneticCursor();
-    initEditorialReveals();
 };
 
 // Tactical Scroll Momentum
@@ -444,4 +335,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initInertia();
+    initSoundDesign();
 });
